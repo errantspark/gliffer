@@ -1,0 +1,30 @@
+<head>
+</head>
+<body>
+<script type="bullshit">
+var myVar = "noobs"
+console.log(myVar);  
+  onmessage = function (oEvent) {
+    postMessage(myVar);
+  };
+</script>
+<script>
+var bs;
+var blob = new Blob(Array.prototype.map.call(document.querySelectorAll("script[type=\"bullshit\"]"), function (oScript) { return oScript.textContent; }),{type: "text/javascript"});
+var reader = new FileReader();
+reader.addEventListener("loadend", function() {
+    bs = reader.result
+    });
+reader.readAsDataURL(blob)
+var bsURL = window.URL.createObjectURL(blob);
+var work = new Worker(bsURL);
+
+  work.onmessage = function (oEvent) {
+    console.log("Received: " + oEvent.data);
+  };
+
+  // Start the worker.
+  window.onload = function() { work.postMessage(""); };
+</script>
+</body>
+
